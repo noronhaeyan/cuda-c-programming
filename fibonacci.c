@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAX 10
+#define MAX 15
 
 int fib_cache[MAX + 1];
 
@@ -19,7 +19,7 @@ int main() {
     for (int i = 0; i <= MAX; i++) {
         fib_cache[i] = -1;
     }
-    int result = fibonacci(10);
-    printf("The 10th term of the Fibonacci sequence is %d\n", result);
+    int result = fibonacci(MAX);
+    printf("The %dth term of the Fibonacci sequence is %d\n", MAX, result);
     return 0;
 }
