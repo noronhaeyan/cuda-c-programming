@@ -49,9 +49,11 @@ void sumArraysOnHost(float *A, float *B, float *C, const int N) {
     }
 }
 
-__global__ void sumArraysOnGPU(float *A, float *B, float *C) { 
+__global__ void sumArraysOnGPU(float *A, float *B, float *C, int N) { 
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    C[i] = A[i] + B[i];
+    if (i < N) {
+        C[i] = A[i] + B[i];
+    }
 }
 
 
@@ -103,7 +105,7 @@ int main(int argc, char **argv) {
     cudaMemcpy(d_B, h_B, nBytes, cudaMemcpyHostToDevice);
 
     // invoke kernel at host side
-    int iLen = 1024;
+    int iLen = 256;
     dim3 block (iLen);
     dim3 grid ((nElem+block.x-1)/block.x);
     iStart = cpuSecond();
